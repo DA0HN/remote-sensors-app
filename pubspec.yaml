@@ -9,11 +9,13 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
   get: ^3.24.0
   dio: ^3.0.10
   charts_flutter: ^0.9.0
   cron: ^0.2.4
   meta: ^1.2.4
-
+  intl: ^0.16.1
 flutter:
   uses-material-design: true
