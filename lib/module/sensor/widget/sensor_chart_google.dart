@@ -14,7 +14,7 @@ class SensorChartGoogle extends StatelessWidget {
       [
         Series<SensorModel, DateTime>(
           id: 'Data',
-          colorFn: (_, __) => MaterialPalette.blue.shadeDefault,
+          colorFn: (_, __) => MaterialPalette.pink.shadeDefault,
           domainFn: (SensorModel model, _) => model.date,
           measureFn: (SensorModel model, _) => model.temperature,
           data: this.data,
@@ -23,21 +23,24 @@ class SensorChartGoogle extends StatelessWidget {
       dateTimeFactory: const LocalDateTimeFactory(),
       animate: true,
       domainAxis: DateTimeAxisSpec(
-        tickProviderSpec: DayTickProviderSpec(increments: [1]),
         tickFormatterSpec: AutoDateTimeTickFormatterSpec(
-          day: TimeFormatterSpec(
-              format: 'jms', transitionFormat: 'EEEE', noonFormat: 'jms'),
+          minute: TimeFormatterSpec(format: 'ms', transitionFormat: 'jms'),
+        ),
+        renderSpec: GridlineRendererSpec(
+          labelStyle: TextStyleSpec(
+            fontSize: 16,
+            color: MaterialPalette.deepOrange.shadeDefault,
+          ),
         ),
       ),
-      customSeriesRenderers: [
-        LineRendererConfig(
-          customRendererId: 'customArea',
-          includeArea: true,
-          stacked: true,
-          includePoints: true,
-          includeLine: true,
+      primaryMeasureAxis: NumericAxisSpec(
+        renderSpec: GridlineRendererSpec(
+          labelStyle: TextStyleSpec(
+            fontSize: 18,
+            color: MaterialPalette.deepOrange.shadeDefault,
+          ),
         ),
-      ],
+      ),
     );
   }
 }
