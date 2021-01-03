@@ -12,6 +12,9 @@ class SensorController extends GetxController {
   // final RxList<SensorModel> _data = List<SensorModel>().obs;
   final _data = <SensorModel>[];
   SensorModel _currentModel = SensorModel(temperature: null, date: null);
+  bool _isInLoopUpdate = false;
+  Timer _loopUpdateTask;
+  final int _seconds = 10;
 
   SensorController({@required this.repository}) {
     // Timer.periodic(Duration(seconds: 5), (timer) {
@@ -30,6 +33,28 @@ class SensorController extends GetxController {
     update();
   }
 
-  List<SensorModel> get data => _data;
-  SensorModel get model => _currentModel;
+  _loopUpdate() {
+    _loopUpdateTask = Timer.periodic(
+      Duration(seconds: _seconds),
+      (_) => updateChart(),
+    );
+  }
+
+  startLoop() {
+    this._isInLoopUpdate = true;
+    _loopUpdate();
+    update();
+  }
+
+  stopLoop() {
+    this._isInLoopUpdate = false;
+    _loopUpdateTask?.cancel();
+    update();
+  }
+
+  List<SensorModel> get data => this._data;
+
+  SensorModel get model => this._currentModel;
+
+  bool get isInLoopUpdate => this._isInLoopUpdate;
 }

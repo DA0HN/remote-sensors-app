@@ -15,10 +15,24 @@ class SensorPage extends GetView<SensorController> {
       ),
       floatingActionButtonLocation:
           FloatingActionButtonLocation.miniStartDocked,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => controller.updateChart(),
-        child: Icon(Icons.update),
-        mini: true,
+      floatingActionButton: GetBuilder(
+        init: controller,
+        builder: (controller) {
+          return InkWell(
+            splashColor: Colors.deepOrange,
+            onLongPress: () => controller.startLoop(),
+            child: FloatingActionButton(
+              splashColor: Colors.deepOrange,
+              onPressed: () => controller.isInLoopUpdate
+                  ? controller.stopLoop()
+                  : controller.updateChart(),
+              child: controller.isInLoopUpdate
+                  ? Icon(Icons.stop)
+                  : Icon(Icons.update),
+              mini: true,
+            ),
+          );
+        },
       ),
       body: _body(),
     );
