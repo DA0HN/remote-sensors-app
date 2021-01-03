@@ -12,6 +12,8 @@ class SensorPage extends GetView<SensorController> {
         centerTitle: true,
         title: Text('Remote sensors app'),
       ),
+      floatingActionButtonLocation:
+          FloatingActionButtonLocation.miniStartDocked,
       floatingActionButton: FloatingActionButton(
         onPressed: () => controller.updateChart(),
         child: Icon(Icons.update),
