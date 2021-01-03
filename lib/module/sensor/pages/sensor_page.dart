@@ -13,10 +13,8 @@ class SensorPage extends GetView<SensorController> {
         title: Text('Remote sensors app'),
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        // onPressed: () {
-        //   Get.find<SensorController>().updateChart();
-        // },
+        onPressed: () => controller.updateChart(),
+        child: Icon(Icons.update),
       ),
       body: PageView(
         children: [
@@ -28,15 +26,17 @@ class SensorPage extends GetView<SensorController> {
             color: const Color(0xff020227),
             child: Padding(
               padding: const EdgeInsets.only(top: 16),
-              child: SensorChart(),
+              child: GetBuilder(
+                init: controller,
+                initState: (_) => controller.updateChart(),
+                builder: (controller) {
+                  return SensorChart(controller.data);
+                },
+              ),
             ),
-          )
+          ),
         ],
       ),
     );
   }
 }
-
-// GetX<SensorController>(
-// initState: (state) => Get.find<SensorController>().updateChart(),
-// builder: (controller) {
