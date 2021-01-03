@@ -2,17 +2,11 @@ import 'package:charts_flutter/flutter.dart';
 import 'package:flutter/material.dart';
 
 import '../../../data/model/sensor_model.dart';
-import '../../../data/provider/sensor_fake_provider.dart';
-import '../../../data/repository/sensor_repository.dart';
 
-class SensorChart extends StatelessWidget {
+class SensorChartGoogle extends StatelessWidget {
   final List<SensorModel> data;
 
-  SensorChart(this.data);
-
-  final SensorRepository repository = SensorRepository(
-    provider: SensorFakeProvider(),
-  );
+  SensorChartGoogle(this.data);
 
   @override
   Widget build(BuildContext context) {

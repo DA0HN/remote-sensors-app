@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../controller/sensor_controller.dart';
-import '../widget/sensor_chart.dart';
+import '../widget/sensor_chart_google.dart';
 
 class SensorPage extends GetView<SensorController> {
   @override
@@ -30,7 +30,7 @@ class SensorPage extends GetView<SensorController> {
                 init: controller,
                 initState: (_) => controller.updateChart(),
                 builder: (controller) {
-                  return SensorChart(controller.data);
+                  return SensorChartGoogle(controller.data);
                 },
               ),
             ),
