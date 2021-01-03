@@ -17,6 +17,7 @@ class SensorPage extends GetView<SensorController> {
       floatingActionButton: FloatingActionButton(
         onPressed: () => controller.updateChart(),
         child: Icon(Icons.update),
+        mini: true,
       ),
       body: PageView(
         children: [
