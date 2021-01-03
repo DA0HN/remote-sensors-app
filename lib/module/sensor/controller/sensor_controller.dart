@@ -11,6 +11,7 @@ class SensorController extends GetxController {
 
   // final RxList<SensorModel> _data = List<SensorModel>().obs;
   final _data = <SensorModel>[];
+  SensorModel _currentModel = SensorModel(temperature: null, date: null);
 
   SensorController({@required this.repository}) {
     // Timer.periodic(Duration(seconds: 5), (timer) {
@@ -25,8 +26,10 @@ class SensorController extends GetxController {
   Future<void> updateChart() async {
     final model = repository.currentTemperature();
     this._data.add(model);
+    _currentModel = model;
     update();
   }
 
-  get data => _data;
+  List<SensorModel> get data => _data;
+  SensorModel get model => _currentModel;
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../controller/sensor_controller.dart';
 import '../widget/sensor_chart_google.dart';
@@ -19,27 +20,43 @@ class SensorPage extends GetView<SensorController> {
         child: Icon(Icons.update),
         mini: true,
       ),
-      body: PageView(
-        children: [
-          Card(
-            elevation: 4,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(32),
-            ),
-            color: const Color(0xff020227),
-            child: Padding(
-              padding: const EdgeInsets.only(top: 16),
-              child: GetBuilder(
-                init: controller,
-                initState: (_) => controller.updateChart(),
-                builder: (controller) {
-                  return SensorChartGoogle(controller.data);
-                },
-              ),
-            ),
-          ),
-        ],
-      ),
+      body: _body(),
     );
+  }
+
+  GetBuilder<SensorController> _body() {
+    return GetBuilder(
+      init: controller,
+      initState: (_) => controller.updateChart(),
+      builder: (controller) {
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(
+              child: SensorChartGoogle(controller.data),
+            ),
+            Divider(height: 20, color: Colors.deepOrange),
+            ..._details(controller.model),
+          ],
+        );
+      },
+    );
+  }
+
+  List<Widget> _details(model) {
+    return [
+      Text(
+        '${model.temperature.toStringAsFixed(2)} ºC',
+        style: TextStyle(fontSize: 25, color: Colors.deepOrange),
+      ),
+      Text(
+        '${DateFormat(DateFormat.HOUR24_MINUTE_SECOND, 'pt_BR').format(model.date)}',
+        style: TextStyle(
+          fontSize: 25,
+          color: Colors.deepOrange,
+        ),
+      ),
+    ];
   }
 }
