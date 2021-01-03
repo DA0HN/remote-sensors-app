@@ -43,6 +43,10 @@ class SensorController extends GetxController {
   startLoop() {
     this._isInLoopUpdate = true;
     _loopUpdate();
+    Get.snackbar(
+      'Iniciando loop...',
+      'A cada $_seconds segundos a temperatura será atualizada',
+    );
     update();
   }
 
