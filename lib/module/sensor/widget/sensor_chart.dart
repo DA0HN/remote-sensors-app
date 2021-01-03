@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:charts_flutter/flutter.dart';
 import 'package:flutter/material.dart';
 
@@ -7,31 +5,14 @@ import '../../../data/model/sensor_model.dart';
 import '../../../data/provider/sensor_fake_provider.dart';
 import '../../../data/repository/sensor_repository.dart';
 
-class SensorChart extends StatefulWidget {
+class SensorChart extends StatelessWidget {
   final List<SensorModel> data;
 
   SensorChart(this.data);
 
-  @override
-  _SensorChartState createState() => _SensorChartState();
-}
-
-class _SensorChartState extends State<SensorChart> {
   final SensorRepository repository = SensorRepository(
     provider: SensorFakeProvider(),
   );
-  Timer _timer;
-
-  @override
-  void initState() {
-    // _timer = Timer.periodic(
-    //   Duration(seconds: 1),
-    //   (timer) {
-    //     updateChart();
-    //   },
-    // );
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +23,7 @@ class _SensorChartState extends State<SensorChart> {
           colorFn: (_, __) => MaterialPalette.blue.shadeDefault,
           domainFn: (SensorModel model, _) => model.date,
           measureFn: (SensorModel model, _) => model.temperature,
-          data: this.widget.data,
+          data: this.data,
         ),
       ],
       dateTimeFactory: const LocalDateTimeFactory(),
@@ -64,18 +45,5 @@ class _SensorChartState extends State<SensorChart> {
         ),
       ],
     );
-  }
-
-  void updateChart() {
-    setState(() {
-      final data = repository.currentTemperature();
-      this.widget.data.add(data);
-    });
-  }
-
-  @override
-  void dispose() {
-    _timer?.cancel();
-    super.dispose();
   }
 }
