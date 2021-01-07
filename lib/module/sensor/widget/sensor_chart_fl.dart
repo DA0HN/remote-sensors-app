@@ -48,8 +48,8 @@ class SensorChartFl extends StatelessWidget {
         showTitle: true,
         titleText: 'Temperatura (ºC)',
         textStyle: TextStyle(
-          color: Colors.deepOrangeAccent,
-          fontWeight: FontWeight.bold,
+          color: Colors.deepOrange,
+          fontWeight: FontWeight.w300,
           fontSize: 18,
         ),
         reservedSize: 20,
@@ -58,8 +58,8 @@ class SensorChartFl extends StatelessWidget {
         showTitle: true,
         titleText: 'Tempo (minutos)',
         textStyle: TextStyle(
-          color: Colors.deepOrangeAccent,
-          fontWeight: FontWeight.bold,
+          color: Colors.deepOrange,
+          fontWeight: FontWeight.w300,
           fontSize: 18,
         ),
         reservedSize: 20,
@@ -127,8 +127,8 @@ class SensorChartFl extends StatelessWidget {
         return DateFormat(DateFormat.MINUTE_SECOND).format(date);
       },
       getTextStyles: (value) => const TextStyle(
-        color: Colors.deepOrangeAccent,
-        fontWeight: FontWeight.bold,
+        color: Colors.deepOrange,
+        fontWeight: FontWeight.w400,
         fontSize: 16,
       ),
       margin: 8,
@@ -143,8 +143,8 @@ class SensorChartFl extends StatelessWidget {
       reservedSize: 50,
       getTitles: (value) => value.toStringAsFixed(2),
       getTextStyles: (value) => const TextStyle(
-        color: Colors.deepOrangeAccent,
-        fontWeight: FontWeight.bold,
+        color: Colors.deepOrange,
+        fontWeight: FontWeight.w400,
         fontSize: 16,
       ),
       margin: 10,
