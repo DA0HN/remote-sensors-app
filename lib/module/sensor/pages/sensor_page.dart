@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:remote_sensors_app/module/sensor/widget/sensor_chart_fl.dart';
 
 import '../controller/sensor_controller.dart';
-import '../widget/sensor_chart_google.dart';
 
 class SensorPage extends GetView<SensorController> {
   @override
@@ -41,22 +41,26 @@ class SensorPage extends GetView<SensorController> {
   GetBuilder<SensorController> _body() {
     return GetBuilder(
       init: controller,
-      initState: (_) => controller.updateChart(),
+      initState: (_) async => await controller.updateChart(),
       builder: (controller) {
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Expanded(
-              child: SensorChartGoogle(
-                data: controller.data,
-                minimum: controller.minimumTemperature,
-                maximum: controller.maximumTemperature,
+        return Container(
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(
+                child: Card(
+                  child: SensorChartFl(
+                    data: controller.spots,
+                    config: controller.chartConfig,
+                  ),
+                ),
               ),
-            ),
-            Divider(height: 20, color: Colors.deepOrange),
-            ..._details(controller.model),
-          ],
+              Divider(height: 20, color: Colors.deepOrange),
+              ..._details(controller.model),
+            ],
+          ),
         );
       },
     );

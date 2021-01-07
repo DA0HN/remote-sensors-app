@@ -1,8 +1,9 @@
 import 'dart:async';
-import 'dart:math';
 
+import 'package:fl_chart/fl_chart.dart';
 import 'package:get/get.dart';
 import 'package:meta/meta.dart';
+import 'package:remote_sensors_app/module/sensor/widget/sensor_chart_config.dart';
 
 import '../../../data/model/sensor_model.dart';
 import '../../../data/repository/sensor_repository.dart';
@@ -16,8 +17,7 @@ class SensorController extends GetxController {
   Timer _loopUpdateTask;
   final int _seconds = 10;
 
-  double _minimumTemperature = 100000;
-  double _maximumTemperature = 0;
+  final SensorChartConfig _chartConfig = SensorChartConfig(leftLabelsCount: 6);
 
   SensorController({@required this.repository});
 
@@ -58,14 +58,40 @@ class SensorController extends GetxController {
 
   bool get isInLoopUpdate => this._isInLoopUpdate;
 
-  double get minimumTemperature => this._minimumTemperature;
+  SensorChartConfig get chartConfig => this._chartConfig;
 
-  double get maximumTemperature => this._maximumTemperature;
+  List<FlSpot> get spots => this._data.map(
+        (data) {
+          return FlSpot(
+              data.date.millisecondsSinceEpoch.toDouble(), data.temperature);
+        },
+      ).toList();
 
   void _updateChartBoundaries() {
-    this._minimumTemperature =
-        this._data.map((data) => data.temperature).toList().reduce(min);
-    this._maximumTemperature =
-        this._data.map((data) => data.temperature).toList().reduce(max);
+    double minY = double.maxFinite;
+    double maxY = double.minPositive;
+
+    data.forEach((data) {
+      if (minY > data.temperature) minY = data.temperature;
+      if (maxY < data.temperature) maxY = data.temperature;
+    });
+
+    this._chartConfig.maxX = spots.last.x;
+    this._chartConfig.minX = spots.first.x;
+    // this._chartConfig.maxY = (maxY / 10).floorToDouble() * 10;
+    // this._chartConfig.minY = (minY / 10).ceilToDouble() * 10;
+    this._chartConfig.maxY = maxY + 1;
+    this._chartConfig.minY = minY - 1;
+    print(
+        'maxY: ${this._chartConfig.maxY.ceilToDouble()}, minY: ${this._chartConfig.minY}');
+
+    print(
+        'max: ${this._chartConfig.maxX.ceilToDouble()}, min: ${this._chartConfig.minX}');
+    print((this._chartConfig.maxX - this._chartConfig.minX) / 6);
+
+    this._chartConfig.leftTitlesInterval =
+        ((this._chartConfig.maxY - this._chartConfig.minY) /
+                (this._chartConfig.leftLabelsCount - 1))
+            .floorToDouble();
   }
 }
