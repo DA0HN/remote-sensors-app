@@ -48,7 +48,11 @@ class SensorPage extends GetView<SensorController> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
-              child: SensorChartGoogle(controller.data),
+              child: SensorChartGoogle(
+                data: controller.data,
+                minimum: controller.minimumTemperature,
+                maximum: controller.maximumTemperature,
+              ),
             ),
             Divider(height: 20, color: Colors.deepOrange),
             ..._details(controller.model),

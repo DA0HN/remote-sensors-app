@@ -1,12 +1,18 @@
 import 'package:charts_flutter/flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:meta/meta.dart';
 
 import '../../../data/model/sensor_model.dart';
 
 class SensorChartGoogle extends StatelessWidget {
   final List<SensorModel> data;
+  final double minimum, maximum;
 
-  SensorChartGoogle(this.data);
+  SensorChartGoogle({
+    @required this.data,
+    @required this.minimum,
+    @required this.maximum,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -40,10 +46,9 @@ class SensorChartGoogle extends StatelessWidget {
             color: MaterialPalette.deepOrange.shadeDefault,
           ),
         ),
+        viewport: NumericExtents(this.minimum, this.maximum),
       ),
       behaviors: [
-        SlidingViewport(),
-        PanAndZoomBehavior(),
         ChartTitle(
           'Tempo (minutos)',
           behaviorPosition: BehaviorPosition.bottom,
