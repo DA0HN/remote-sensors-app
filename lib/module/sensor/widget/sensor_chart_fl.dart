@@ -13,9 +13,12 @@ class SensorChartFl extends StatelessWidget {
 
   final _lineColor = 0xffe6e8ca;
 
-  final List<Color> gradientColors = [
-    const Color(0xff1fd166),
-    const Color(0xff43f78b),
+  final List<Color> _gradientColors = [
+    const Color(0xFFED1F18),
+    const Color(0xFFF06E3E),
+    const Color(0xFFDBDB2C),
+    const Color(0xFF2FDEC4),
+    const Color(0xFF009FF5),
   ];
 
   @override
@@ -34,7 +37,7 @@ class SensorChartFl extends StatelessWidget {
         axisTitleData: _flAxisTitleData(),
         gridData: _flGridData(),
         borderData: _flBorderData(),
-        lineBarsData: [_lineChartBarData()],
+        lineBarsData: [_lineBarsData()],
       ),
     );
   }
@@ -69,18 +72,18 @@ class SensorChartFl extends StatelessWidget {
       show: true,
       getDrawingHorizontalLine: (value) {
         return FlLine(
-          color: Color(_lineColor).withOpacity(0.2),
+          color: Color(_lineColor).withOpacity(0.3),
           strokeWidth: 1,
         );
       },
       checkToShowHorizontalLine: (value) {
         return (value - config.minX) % config.leftTitlesInterval == 0;
       },
-      drawVerticalLine: false,
-      drawHorizontalLine: true,
+      // drawVerticalLine: true,
+      // drawHorizontalLine: true,
       getDrawingVerticalLine: (value) {
         return FlLine(
-          color: Color(_lineColor).withOpacity(0.2),
+          color: Color(_lineColor).withOpacity(0.3),
           strokeWidth: 1,
         );
       },
@@ -94,16 +97,23 @@ class SensorChartFl extends StatelessWidget {
     );
   }
 
-  LineChartBarData _lineChartBarData() {
+  LineChartBarData _lineBarsData() {
     return LineChartBarData(
       spots: this.data,
       isCurved: true,
-      colors: gradientColors,
-      barWidth: 1,
+      colors: _gradientColors,
+      colorStops: const [0.25, 0.5, 0.75],
+      gradientFrom: const Offset(0.5, 0),
+      gradientTo: const Offset(0.5, 1),
+      barWidth: 2,
+      isStrokeCapRound: true,
       dotData: FlDotData(show: false),
       belowBarData: BarAreaData(
         show: true,
-        colors: gradientColors.map((color) => color.withOpacity(0.3)).toList(),
+        colors: _gradientColors.map((color) => color.withOpacity(0.5)).toList(),
+        gradientColorStops: const [0.125, 0.25, 0.5, 0.75],
+        gradientFrom: const Offset(0.5, 0),
+        gradientTo: const Offset(0.5, 1),
       ),
     );
   }
