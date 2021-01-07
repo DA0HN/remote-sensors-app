@@ -5,8 +5,8 @@ import 'sensor_provider.dart';
 
 class SensorFakeProvider implements AbstractSensorProvider {
   final _random = new Random();
-  final _min = 15;
-  final _max = 40;
+  final _min = 26;
+  final _max = 28;
 
   @override
   SensorModel currentTemperature() {
