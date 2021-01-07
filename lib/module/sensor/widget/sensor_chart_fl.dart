@@ -102,7 +102,7 @@ class SensorChartFl extends StatelessWidget {
       spots: this.data,
       isCurved: true,
       colors: _gradientColors,
-      colorStops: const [0.25, 0.5, 0.75],
+      colorStops: const [0.2, 0.4, 0.6, 0.8],
       gradientFrom: const Offset(0.5, 0),
       gradientTo: const Offset(0.5, 1),
       barWidth: 2,
@@ -111,7 +111,7 @@ class SensorChartFl extends StatelessWidget {
       belowBarData: BarAreaData(
         show: true,
         colors: _gradientColors.map((color) => color.withOpacity(0.5)).toList(),
-        gradientColorStops: const [0.125, 0.25, 0.5, 0.75],
+        gradientColorStops: const [0.2, 0.4, 0.6, 0.8],
         gradientFrom: const Offset(0.5, 0),
         gradientTo: const Offset(0.5, 1),
       ),
