@@ -137,7 +137,7 @@ class SensorChartFl extends StatelessWidget {
       gradientTo: const Offset(0.5, 1),
       barWidth: 2,
       isStrokeCapRound: true,
-      dotData: FlDotData(show: false),
+      dotData: FlDotData(show: true),
       belowBarData: BarAreaData(
         show: true,
         colors: _gradientColors.map((color) => color.withOpacity(0.5)).toList(),
