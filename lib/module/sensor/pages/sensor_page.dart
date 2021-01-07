@@ -58,7 +58,7 @@ class SensorPage extends GetView<SensorController> {
                 ),
               ),
               Divider(height: 20, color: Colors.deepOrange),
-              ..._details(controller.model),
+              _details(controller.model),
             ],
           ),
         );
@@ -66,19 +66,23 @@ class SensorPage extends GetView<SensorController> {
     );
   }
 
-  List<Widget> _details(model) {
-    return [
-      Text(
-        '${model.temperature.toStringAsFixed(2)} ºC',
-        style: TextStyle(fontSize: 25, color: Colors.deepOrange),
-      ),
-      Text(
-        '${DateFormat(DateFormat.HOUR24_MINUTE_SECOND, 'pt_BR').format(model.date)}',
-        style: TextStyle(
-          fontSize: 25,
-          color: Colors.deepOrange,
+  Widget _details(model) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Text(
+          '${model.temperature.toStringAsFixed(2)} ºC',
+          style: TextStyle(fontSize: 25, color: Colors.deepOrange),
         ),
-      ),
-    ];
+        Text(
+          '${DateFormat(DateFormat.HOUR24_MINUTE_SECOND, 'pt_BR').format(model.date)}',
+          style: TextStyle(
+            fontSize: 25,
+            color: Colors.deepOrange,
+          ),
+        )
+      ],
+    );
   }
 }
