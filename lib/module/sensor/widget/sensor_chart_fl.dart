@@ -37,8 +37,38 @@ class SensorChartFl extends StatelessWidget {
         axisTitleData: _flAxisTitleData(),
         gridData: _flGridData(),
         borderData: _flBorderData(),
+        lineTouchData: _lineTouchData(),
         lineBarsData: [_lineBarsData()],
       ),
+    );
+  }
+
+  LineTouchData _lineTouchData() {
+    return LineTouchData(
+      touchTooltipData: LineTouchTooltipData(
+        tooltipBgColor: Colors.blueGrey.withOpacity(0.8),
+        getTooltipItems: (List<LineBarSpot> touchedBarSpots) {
+          return touchedBarSpots.map(
+            (barSpot) {
+              final flSpot = barSpot;
+              final date =
+                  DateTime.fromMillisecondsSinceEpoch(flSpot.x.toInt());
+              final formattedDate =
+                  DateFormat(DateFormat.HOUR_MINUTE_SECOND, 'pt_BR')
+                      .format(date);
+              return LineTooltipItem(
+                '${flSpot.y.toStringAsFixed(2)} ºC\n$formattedDate',
+                const TextStyle(
+                  color: Colors.deepOrange,
+                  fontWeight: FontWeight.w300,
+                  fontSize: 18,
+                ),
+              );
+            },
+          ).toList();
+        },
+      ),
+      touchCallback: (_) => {},
     );
   }
 
