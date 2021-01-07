@@ -148,7 +148,9 @@ class SensorChartFl extends StatelessWidget {
         fontSize: 16,
       ),
       margin: 10,
-      interval: null,
+      interval: this.config.leftTitlesInterval == 0
+          ? null
+          : this.config.leftTitlesInterval,
     );
   }
 }
