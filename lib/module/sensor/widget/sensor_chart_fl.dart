@@ -31,6 +31,29 @@ class SensorChartFl extends StatelessWidget {
           bottomTitles: _bottomTitles(),
           leftTitles: _leftTitles(),
         ),
+        axisTitleData: FlAxisTitleData(
+          rightTitle: AxisTitle(showTitle: false, titleText: 'count'),
+          leftTitle: AxisTitle(
+            showTitle: true,
+            titleText: 'Temperatura (ºC)',
+            textStyle: TextStyle(
+              color: Colors.deepOrangeAccent,
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+            ),
+            reservedSize: 20,
+          ),
+          bottomTitle: AxisTitle(
+            showTitle: true,
+            titleText: 'Tempo (minutos)',
+            textStyle: TextStyle(
+              color: Colors.deepOrangeAccent,
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+            ),
+            reservedSize: 20,
+          ),
+        ),
         gridData: FlGridData(
           show: true,
           getDrawingHorizontalLine: (value) {
