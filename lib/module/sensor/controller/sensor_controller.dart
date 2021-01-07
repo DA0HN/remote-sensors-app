@@ -78,20 +78,25 @@ class SensorController extends GetxController {
 
     this._chartConfig.maxX = spots.last.x;
     this._chartConfig.minX = spots.first.x;
-    // this._chartConfig.maxY = (maxY / 10).floorToDouble() * 10;
-    // this._chartConfig.minY = (minY / 10).ceilToDouble() * 10;
     this._chartConfig.maxY = maxY + 1;
     this._chartConfig.minY = minY - 1;
-    print(
-        'maxY: ${this._chartConfig.maxY.ceilToDouble()}, minY: ${this._chartConfig.minY}');
 
-    print(
-        'max: ${this._chartConfig.maxX.ceilToDouble()}, min: ${this._chartConfig.minX}');
-    print((this._chartConfig.maxX - this._chartConfig.minX) / 6);
+    _debug();
 
     this._chartConfig.leftTitlesInterval =
         ((this._chartConfig.maxY - this._chartConfig.minY) /
-                (this._chartConfig.leftLabelsCount - 1))
+                (this._chartConfig.leftLabelsCount - 0.5))
             .floorToDouble();
+  }
+
+  void _debug() {
+    if (false) {
+      print(
+          'maxY: ${this._chartConfig.maxY.ceilToDouble()}, minY: ${this._chartConfig.minY}');
+
+      print(
+          'max: ${this._chartConfig.maxX.ceilToDouble()}, min: ${this._chartConfig.minX}');
+      print((this._chartConfig.maxX - this._chartConfig.minX) / 6);
+    }
   }
 }
