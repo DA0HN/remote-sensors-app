@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:get/get.dart';
 import 'package:meta/meta.dart';
@@ -15,12 +16,16 @@ class SensorController extends GetxController {
   Timer _loopUpdateTask;
   final int _seconds = 10;
 
+  double _minimumTemperature = 100000;
+  double _maximumTemperature = 0;
+
   SensorController({@required this.repository});
 
   Future<void> updateChart() async {
     final model = repository.currentTemperature();
     this._data.add(model);
     _currentModel = model;
+    _updateChartBoundaries();
     update();
   }
 
@@ -52,4 +57,15 @@ class SensorController extends GetxController {
   SensorModel get model => this._currentModel;
 
   bool get isInLoopUpdate => this._isInLoopUpdate;
+
+  double get minimumTemperature => this._minimumTemperature;
+
+  double get maximumTemperature => this._maximumTemperature;
+
+  void _updateChartBoundaries() {
+    this._minimumTemperature =
+        this._data.map((data) => data.temperature).toList().reduce(min);
+    this._maximumTemperature =
+        this._data.map((data) => data.temperature).toList().reduce(max);
+  }
 }
