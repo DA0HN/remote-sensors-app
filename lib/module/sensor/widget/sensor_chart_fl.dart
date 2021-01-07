@@ -31,68 +31,79 @@ class SensorChartFl extends StatelessWidget {
           bottomTitles: _bottomTitles(),
           leftTitles: _leftTitles(),
         ),
-        axisTitleData: FlAxisTitleData(
-          rightTitle: AxisTitle(showTitle: false, titleText: 'count'),
-          leftTitle: AxisTitle(
-            showTitle: true,
-            titleText: 'Temperatura (ºC)',
-            textStyle: TextStyle(
-              color: Colors.deepOrangeAccent,
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
-            ),
-            reservedSize: 20,
-          ),
-          bottomTitle: AxisTitle(
-            showTitle: true,
-            titleText: 'Tempo (minutos)',
-            textStyle: TextStyle(
-              color: Colors.deepOrangeAccent,
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
-            ),
-            reservedSize: 20,
-          ),
+        axisTitleData: _flAxisTitleData(),
+        gridData: _flGridData(),
+        borderData: _flBorderData(),
+        lineBarsData: [_lineChartBarData()],
+      ),
+    );
+  }
+
+  FlAxisTitleData _flAxisTitleData() {
+    return FlAxisTitleData(
+      leftTitle: AxisTitle(
+        showTitle: true,
+        titleText: 'Temperatura (ºC)',
+        textStyle: TextStyle(
+          color: Colors.deepOrangeAccent,
+          fontWeight: FontWeight.bold,
+          fontSize: 18,
         ),
-        gridData: FlGridData(
-          show: true,
-          getDrawingHorizontalLine: (value) {
-            return FlLine(
-              color: Color(_lineColor).withOpacity(0.2),
-              strokeWidth: 1,
-            );
-          },
-          checkToShowHorizontalLine: (value) {
-            return (value - config.minX) % config.leftTitlesInterval == 0;
-          },
-          drawVerticalLine: false,
-          drawHorizontalLine: true,
-          getDrawingVerticalLine: (value) {
-            return FlLine(
-              color: Color(_lineColor).withOpacity(0.2),
-              strokeWidth: 1,
-            );
-          },
+        reservedSize: 20,
+      ),
+      bottomTitle: AxisTitle(
+        showTitle: true,
+        titleText: 'Tempo (minutos)',
+        textStyle: TextStyle(
+          color: Colors.deepOrangeAccent,
+          fontWeight: FontWeight.bold,
+          fontSize: 18,
         ),
-        borderData: FlBorderData(
-          show: true,
-          border: Border.all(color: Color(_lineColor), width: 1),
-        ),
-        lineBarsData: [
-          LineChartBarData(
-            spots: this.data,
-            isCurved: true,
-            colors: gradientColors,
-            barWidth: 1,
-            dotData: FlDotData(show: false),
-            belowBarData: BarAreaData(
-              show: true,
-              colors: gradientColors
-                  .map((color) => color.withOpacity(0.3))
-                  .toList(),
-            ),
-          ),
-        ],
+        reservedSize: 20,
+      ),
+    );
+  }
+
+  FlGridData _flGridData() {
+    return FlGridData(
+      show: true,
+      getDrawingHorizontalLine: (value) {
+        return FlLine(
+          color: Color(_lineColor).withOpacity(0.2),
+          strokeWidth: 1,
+        );
+      },
+      checkToShowHorizontalLine: (value) {
+        return (value - config.minX) % config.leftTitlesInterval == 0;
+      },
+      drawVerticalLine: false,
+      drawHorizontalLine: true,
+      getDrawingVerticalLine: (value) {
+        return FlLine(
+          color: Color(_lineColor).withOpacity(0.2),
+          strokeWidth: 1,
+        );
+      },
+    );
+  }
+
+  FlBorderData _flBorderData() {
+    return FlBorderData(
+      show: true,
+      border: Border.all(color: Color(_lineColor), width: 1),
+    );
+  }
+
+  LineChartBarData _lineChartBarData() {
+    return LineChartBarData(
+      spots: this.data,
+      isCurved: true,
+      colors: gradientColors,
+      barWidth: 1,
+      dotData: FlDotData(show: false),
+      belowBarData: BarAreaData(
+        show: true,
+        colors: gradientColors.map((color) => color.withOpacity(0.3)).toList(),
       ),
     );
   }
