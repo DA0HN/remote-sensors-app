@@ -41,6 +41,26 @@ class SensorChartGoogle extends StatelessWidget {
           ),
         ),
       ),
+      behaviors: [
+        SlidingViewport(),
+        PanAndZoomBehavior(),
+        ChartTitle(
+          'Tempo (minutos)',
+          behaviorPosition: BehaviorPosition.bottom,
+          titleStyleSpec: TextStyleSpec(
+            fontSize: 16,
+            color: MaterialPalette.deepOrange.shadeDefault,
+          ),
+        ),
+        ChartTitle(
+          'Temperatura ºC',
+          behaviorPosition: BehaviorPosition.start,
+          titleStyleSpec: TextStyleSpec(
+            fontSize: 16,
+            color: MaterialPalette.deepOrange.shadeDefault,
+          ),
+        )
+      ],
     );
   }
 }
