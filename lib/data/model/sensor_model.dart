@@ -17,4 +17,9 @@ class SensorModel {
     data['date'] = this.date;
     return data;
   }
+
+  @override
+  String toString() {
+    return 'SensorModel{temperature: $temperature, date: $date}';
+  }
 }

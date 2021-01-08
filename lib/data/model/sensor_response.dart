@@ -31,4 +31,9 @@ class SensorResponse {
     data['hasError'] = this.hasError;
     return data;
   }
+
+  @override
+  String toString() {
+    return 'SensorResponse{data: $data, queueSize: $queueSize, message: $message, hasError: $hasError}';
+  }
 }
