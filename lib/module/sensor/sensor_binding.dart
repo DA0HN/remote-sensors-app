@@ -1,6 +1,7 @@
+import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 
-import '../../data/provider/sensor_fake_provider.dart';
+import '../../data/provider/sensor_provider.dart';
 import '../../data/repository/sensor_repository.dart';
 import 'controller/sensor_controller.dart';
 
@@ -10,7 +11,9 @@ class SensorBinding extends Bindings {
     Get.lazyPut<SensorController>(
       () => SensorController(
         repository: SensorRepository(
-          provider: SensorFakeProvider(),
+          provider: SensorProvider(
+            dio: Dio(),
+          ),
         ),
       ),
     );

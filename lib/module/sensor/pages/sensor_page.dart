@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:remote_sensors_app/module/sensor/widget/sensor_chart_fl.dart';
 
 import '../controller/sensor_controller.dart';
+import '../widget/sensor_chart_fl.dart';
 
 class SensorPage extends GetView<SensorController> {
   @override
@@ -23,9 +23,9 @@ class SensorPage extends GetView<SensorController> {
             onLongPress: () => controller.startLoop(),
             child: FloatingActionButton(
               splashColor: Colors.deepOrange,
-              onPressed: () => controller.isInLoopUpdate
+              onPressed: () async => controller.isInLoopUpdate
                   ? controller.stopLoop()
-                  : controller.updateChart(),
+                  : await controller.updateChart(),
               child: controller.isInLoopUpdate
                   ? Icon(Icons.stop)
                   : Icon(Icons.update),
@@ -72,11 +72,11 @@ class SensorPage extends GetView<SensorController> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          '${model.temperature.toStringAsFixed(2)} ºC',
+          '${model?.temperature?.toStringAsFixed(2)} ºC',
           style: TextStyle(fontSize: 25, color: Colors.deepOrange),
         ),
         Text(
-          '${DateFormat(DateFormat.HOUR24_MINUTE_SECOND, 'pt_BR').format(model.date)}',
+          '${DateFormat(DateFormat.HOUR24_MINUTE_SECOND, 'pt_BR').format(model?.date)}',
           style: TextStyle(
             fontSize: 25,
             color: Colors.deepOrange,

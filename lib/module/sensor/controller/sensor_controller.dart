@@ -21,12 +21,13 @@ class SensorController extends GetxController {
 
   SensorController({@required this.repository});
 
+  // TODO: implementar percepção de que resta apenas um elemento na API
   Future<void> updateChart() async {
     final model = await repository.currentTemperature();
-    // this._data.add(model);
-    // _currentModel = model;
-    // _updateChartBoundaries();
-    // update();
+    this._data.add(model);
+    _currentModel = model;
+    _updateChartBoundaries();
+    update();
   }
 
   _loopUpdate() {
@@ -62,8 +63,8 @@ class SensorController extends GetxController {
 
   List<FlSpot> get spots => this._data.map(
         (data) {
-          return FlSpot(
-              data.date.millisecondsSinceEpoch.toDouble(), data.temperature);
+          return FlSpot(data?.date?.millisecondsSinceEpoch?.toDouble(),
+              data?.temperature);
         },
       ).toList();
 
