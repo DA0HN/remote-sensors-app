@@ -12,6 +12,7 @@ class SensorPage extends GetView<SensorController> {
       appBar: AppBar(
         centerTitle: true,
         title: Text('Remote sensors app'),
+        // TODO: adicionar switch para alternar a apresentação de pontos no gráfico
       ),
       floatingActionButtonLocation:
           FloatingActionButtonLocation.miniStartDocked,
@@ -50,12 +51,9 @@ class SensorPage extends GetView<SensorController> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Expanded(
-                child: Card(
-                  child: SensorChartFl(
-                    data: controller.spots,
-                    config: controller.chartConfig,
-                  ),
-                ),
+                child: controller.model == null
+                    ? _currentModelIsNotLoaded()
+                    : _chart(controller),
               ),
               Divider(height: 20, color: Colors.deepOrange),
               _details(controller.model),
@@ -66,22 +64,55 @@ class SensorPage extends GetView<SensorController> {
     );
   }
 
+  Card _chart(SensorController controller) {
+    return Card(
+      child: SensorChartFl(
+        data: controller.spots,
+        config: controller.chartConfig,
+      ),
+    );
+  }
+
+  Column _currentModelIsNotLoaded() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Center(
+          child: CircularProgressIndicator(),
+        ),
+        SizedBox(height: 20),
+        Text(
+          'Não foi possível consultar a temperatura :(',
+          style: TextStyle(fontSize: 20, color: Colors.deepOrange),
+        )
+      ],
+    );
+  }
+
   Widget _details(model) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text(
-          '${model?.temperature?.toStringAsFixed(2)} ºC',
-          style: TextStyle(fontSize: 25, color: Colors.deepOrange),
-        ),
-        Text(
-          '${DateFormat(DateFormat.HOUR24_MINUTE_SECOND, 'pt_BR').format(model?.date)}',
-          style: TextStyle(
-            fontSize: 25,
-            color: Colors.deepOrange,
-          ),
-        )
+        model == null
+            ? Text('')
+            : Text(
+                '${model?.temperature?.toStringAsFixed(2)} ºC',
+                style: TextStyle(
+                  fontSize: 25,
+                  color: Colors.deepOrange,
+                ),
+              ),
+        model == null
+            ? Text('')
+            : Text(
+                '${DateFormat(DateFormat.HOUR24_MINUTE_SECOND, 'pt_BR').format(model?.date)}',
+                style: TextStyle(
+                  fontSize: 25,
+                  color: Colors.deepOrange,
+                ),
+              )
       ],
     );
   }
