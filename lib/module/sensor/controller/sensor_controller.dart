@@ -22,11 +22,11 @@ class SensorController extends GetxController {
   SensorController({@required this.repository});
 
   Future<void> updateChart() async {
-    final model = repository.currentTemperature();
-    this._data.add(model);
-    _currentModel = model;
-    _updateChartBoundaries();
-    update();
+    final model = await repository.currentTemperature();
+    // this._data.add(model);
+    // _currentModel = model;
+    // _updateChartBoundaries();
+    // update();
   }
 
   _loopUpdate() {
