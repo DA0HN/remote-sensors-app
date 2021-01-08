@@ -16,20 +16,16 @@ class SensorProvider implements AbstractSensorProvider {
 
   @override
   Future<SensorModel> currentTemperature() async {
-    try {
-      final response = await dio.get('$api/temperature');
+    final response = await dio.get('$api/temperature');
 
-      final sensorResponse = SensorResponse.fromJson(response.data);
+    final sensorResponse = SensorResponse.fromJson(response.data);
 
-      if (response.statusCode == 200 && !sensorResponse.hasError) {
-        return sensorResponse.data;
-      } else {
-        print('Erro método GET\n\tstatus: ${response.statusCode}\n\tmessage: '
-            '${sensorResponse.message}');
-        throw Exception(sensorResponse.message);
-      }
-    } catch (erro) {
-      print(erro);
+    if (response.statusCode == 200 && !sensorResponse.hasError) {
+      return sensorResponse.data;
+    } else {
+      print('Erro método GET\n\tstatus: ${response.statusCode}\n\tmessage: '
+          '${sensorResponse.message}');
+      throw Exception(sensorResponse.message);
     }
   }
 }
