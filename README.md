@@ -1,16 +1,19 @@
-# remote_sensors_app
+# Remote Sensor App
 
-Aplicativo para consulta da temperatura de um ambiente através de uma API na nuvem e um microcontrolador esp32
+Aplicativo desenvolvido para plotar gráfico em “tempo real” das informações fornecidas pelos sensores controlados 
+pelo microcontrolador Esp32. Para isso, utiliza uma API desenvolvida com Kotlin e Spring Boot hospedada no Heroku.
 
-## Getting Started
+* [Esp32](https://github.com/DA0HN/remote-sensors-esp32)
+* [API](https://github.com/DA0HN/remote-sensors-api)
 
-This project is a starting point for a Flutter application.
+![app](images/sensor-remoto-app.jpeg)
 
-A few resources to get you started if this is your first Flutter project:
+# TODO
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- [ ] Adicionar painel de configuração para gerenciar:
+    - Tamanho da fila
+    - Transmissão de dados entre API e Esp32
+    - Transmissão entre App e API
+    - Controlar tempo de consulta automática
+- [ ] Menu de opções de mais sensores fornecidos pela API
+- [ ] Adicionar tutorial básico do aplicativo com Stepper
