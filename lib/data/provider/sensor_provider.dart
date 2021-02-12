@@ -6,8 +6,8 @@ import '../model/sensor_model.dart';
 import '../model/sensor_response.dart';
 import 'abstract_sensor_provider.dart';
 
-const api = 'http://192.168.0.32:5000/api/v1/remote-sensors';
-// 'https://my-remote-sensors.herokuapp.com/api/v1/remote-sensors/temperature';
+// const api = 'http://192.168.0.32:5000/api/v1/remote-sensors';
+const api = 'https://my-remote-sensors.herokuapp.com/api/v1/remote-sensors';
 
 class SensorProvider implements AbstractSensorProvider {
   final Dio dio;
